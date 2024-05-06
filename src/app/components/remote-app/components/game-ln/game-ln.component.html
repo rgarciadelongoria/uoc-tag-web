@@ -1,0 +1,36 @@
+<section class="game">
+    <article class="row">
+      <img class="game-img"
+      aria-hidden="true" slot="start" alt="" 
+      [src]="environment.web.host + '/assets/logos/games/' + data.code + '.png'">
+      <section class="game-data">
+          <span class="game-data-date" color="medium">{{ data.date | date | async }}</span>
+      </section>
+    </article>
+    <article class="row">
+      <section class="game-more">
+				@if(bestGamePrizes.primerPremio) {
+					<article class="game-more-item game-more-best-prize-first">
+						<ion-label [ngClass]="'game-more-best-prize-first-number'"><span class="ball">{{ bestGamePrizes.primerPremio.decimo }}</span></ion-label>
+						<ion-label [ngClass]="'game-more-best-prize-first-quantity'" slot="end">{{ bestGamePrizes.primerPremio.prize / 100 | currency:'EUR' | async }}</ion-label>
+					</article>
+				}
+				@if(bestGamePrizes.segundoPremio) {
+					<article class="game-more-item game-more-best-prize-second">
+						<ion-label [ngClass]="'game-more-best-prize-second-number'"><span class="ball">{{ bestGamePrizes.segundoPremio.decimo }}</span></ion-label>
+						<ion-label [ngClass]="'game-more-best-prize-second-quantity'" slot="end">{{ bestGamePrizes.segundoPremio.prize / 100 | currency:'EUR' | async }}</ion-label>
+					</article>
+				}
+				@if(bestGamePrizes.reintegros) {
+					<article class="game-more-item">
+						<ion-label [ngClass]="'game-more-best-prize-third-number'">
+							@for(refund of bestGamePrizes.reintegros; track refund.decimo) {
+								<span class="ball">{{ refund.decimo }}</span>
+							}
+						</ion-label>
+						<ion-label [ngClass]="'game-more-best-prize-third-quantity'" slot="end">{{ bestGamePrizes.reintegros[0].prize / 100 | currency:'EUR' | async }}</ion-label>
+					</article>
+				}
+      </section>
+    </article>
+</section>

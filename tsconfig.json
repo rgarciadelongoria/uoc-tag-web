@@ -17,11 +17,11 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
+    "target": "ES2015",
+    "module": "ES2020",
     "useDefineForClassFields": false,
     "lib": [
-      "ES2022",
+      "ES2015",
       "dom"
     ],
     "paths": {
@@ -32,6 +32,7 @@
       "@environments/*": ["src/environments/*"],
       "@utils/*": ["src/app/utils/*"],
       "@pipes/*": ["src/app/pipes/*"],
+      "@modals/*": ["src/app/components/remote-app/modals/*"],
     }
   },
   "angularCompilerOptions": {

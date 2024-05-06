@@ -1,0 +1,56 @@
+<ion-content class="ion-padding">
+  @if(step === 0) {
+    <section class="page choose-language">
+      <h2>{{ 'ONBOARDING.LANGUAGE.TITLE' | translate }}</h2>
+      <p>{{ 'ONBOARDING.LANGUAGE.DESCRIPTION' | translate }}</p>
+      <ion-list class="language-list">
+        <ion-item button
+          (click)="changeLanguage('en')">
+          <span class="flag fi fi-gb"></span>
+          <ion-label>{{ 'GLOBAL.ENGLISH' | translate }}</ion-label>
+        </ion-item>
+        <ion-item button
+          (click)="changeLanguage('es')">
+          <span class="flag fi fi-es"></span>
+          <ion-label>{{ 'GLOBAL.SPANISH' | translate }}</ion-label>
+        </ion-item>
+        <ion-item button
+          (click)="changeLanguage('ca')">
+          <span class="flag fi fi-es-ct"></span>
+          <ion-label>{{ 'GLOBAL.CATALAN' | translate }}</ion-label>
+        </ion-item>
+        <ion-item button
+          (click)="changeLanguage('gl')">
+          <span class="flag fi fi-es-ga"></span>
+          <ion-label>{{ 'GLOBAL.GALICIAN' | translate }}</ion-label>
+        </ion-item>
+        <ion-item button
+          (click)="changeLanguage('eu')">
+          <span class="flag fi fi-es-pv"></span>
+          <ion-label>{{ 'GLOBAL.BASQUE' | translate }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </section>
+  } @else if(step === 1 && hasShell) {
+    <section class="page notification-permission">
+      <h2>{{ 'ONBOARDING.NOTIFICATIONS_PERMISSION.TITLE' | translate }}</h2>
+      <ion-icon class="notifications-permission-img" name="notifications-outline"></ion-icon>
+      <p>{{ 'ONBOARDING.NOTIFICATIONS_PERMISSION.DESCRIPTION' | translate }}</p>
+      @if (notificationPermission === 'granted') {
+        <ion-button (click)="requestNotificationPermission()" [strong]="true">{{ 'GLOBAL.CONTINUE' | translate }}</ion-button>
+      } @else if (notificationPermission === 'prompt') {
+        <ion-button (click)="requestNotificationPermission()" [strong]="true">{{ 'GLOBAL.REQUEST_PERMISSION' | translate }}</ion-button>
+      } @else {
+        <p><ion-text color="danger">{{ 'ONBOARDING.NOTIFICATIONS_PERMISSION.DENIED' | translate }}</ion-text></p>
+        <ion-button (click)="requestNotificationPermission()" [strong]="true">{{ 'GLOBAL.CONTINUE' | translate }}</ion-button>
+      }
+    </section>
+  } @else if(step === 2 && hasShell) {
+    <section class="page camera-permission">
+      <h2>{{ 'ONBOARDING.CAMERA_PERMISSION.TITLE' | translate }}</h2>
+      <ion-icon class="camera-permission-img" name="barcode-outline"></ion-icon>
+      <p>{{ 'ONBOARDING.CAMERA_PERMISSION.DESCRIPTION' | translate }}</p>
+      <ion-button (click)="requestCameraPermission()" [strong]="true">{{ 'GLOBAL.CONTINUE' | translate }}</ion-button>
+    </section>
+  }
+</ion-content>

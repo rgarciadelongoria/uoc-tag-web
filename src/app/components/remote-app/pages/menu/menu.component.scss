@@ -1,0 +1,51 @@
+:host {
+  display: block;
+
+  ion-content {
+    height: 100vh;
+    width: 100vw;
+    --offset-bottom: 100px !important;
+  }
+
+  ion-content::part(scroll) {
+    overscroll-behavior: none;
+    overflow : scroll
+  }
+
+  .menu-list {
+    &-qr {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0 10px 0;
+    }
+
+    &-option {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+
+  .menu-list:last-of-type {
+    margin-bottom: 200px;
+  }
+
+  
+
+  .buy-me-a-coffee::part(native) {
+    background-color: #ffdd02;
+  }
+
+  .buy-me-a-coffee {
+    text-align: left;
+    background-color: #ffdd02;
+
+    &-img {
+      height: 30px;
+      margin-right: 10px;
+    }
+  }
+}

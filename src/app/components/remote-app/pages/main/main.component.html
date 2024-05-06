@@ -1,3 +1,43 @@
-<section>
-    <p>PEC1</p>
-</section>
+
+@if(activeTabName !== tabs.SCAN) {
+  <ion-fab class="fab-button" slot="fixed" vertical="bottom" horizontal="center">
+    <ion-fab-button (click)="clickScanButton()">
+      <ion-icon name="barcode-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+} @else {
+  <ion-fab class="fab-button close" slot="fixed" vertical="bottom" horizontal="center">
+    <ion-fab-button (click)="clickCloseScanButton()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+}
+<ion-tabs #mainTabs
+  [ngClass]="{'is-scan': activeTabName === tabs.SCAN}">
+  @if(activeTabName !== tabs.SCAN) {
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button [tab]="tabs.GAMES"
+        (click)="saveTabNavigation(tabs.GAMES)">
+        <ion-icon name="grid-outline"></ion-icon>
+        <span>{{ "MAIN.TABS.GAMES" | translate }}</span>
+      </ion-tab-button>
+      <ion-tab-button [tab]="tabs.TICKETS"
+        (click)="saveTabNavigation(tabs.TICKETS)">
+        <ion-icon name="wallet-outline"></ion-icon>
+        <span>{{ "MAIN.TABS.TICKETS" | translate }}</span>
+      </ion-tab-button>
+      <span class="white-tab"></span>
+      <span class="empty-tab"></span>
+      <!-- <ion-tab-button [tab]="tabs.SCAN"
+        (click)="saveTabNavigation(tabs.SCAN)">
+        <ion-icon name="scan-outline"></ion-icon>
+        <span>{{ "MAIN.TABS.SCAN_NOW" | translate }}</span>
+      </ion-tab-button> -->
+      <ion-tab-button [tab]="tabs.MENU"
+        (click)="saveTabNavigation(tabs.MENU)">
+        <ion-icon name="settings-outline"></ion-icon>
+        <span>{{ "MAIN.TABS.SETTINGS" | translate }}</span>
+      </ion-tab-button>
+    </ion-tab-bar>
+  }
+</ion-tabs>

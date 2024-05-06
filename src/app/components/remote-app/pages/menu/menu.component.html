@@ -1,0 +1,67 @@
+<ion-content padding color="light">
+    <ion-list class="menu-list" [inset]="true">
+        <section class="menu-list-qr" 
+            (click)="toggleAccordion()">
+            <qr-code *ngIf="qrUuid" [value]="qrUuid" size="200" errorCorrectionLevel="M"></qr-code>
+        </section>
+        <ion-accordion-group #accordionGroup>
+            <ion-accordion value="first">
+                <div slot="content">
+                    @if (uuid) {
+                        <ion-item>
+                            <ion-label>
+                                <h3>{{ 'GLOBAL.ID' | translate }}</h3>
+                                <p>{{ uuid }}</p>
+                            </ion-label>
+                        </ion-item>
+                    }
+                    @if (pushToken) {
+                        <ion-item>
+                            <ion-label>
+                                <h3>{{ 'GLOBAL.PUSH_TOKEN' | translate }}</h3>
+                                <p>{{ pushToken }}</p>
+                            </ion-label>
+                        </ion-item>
+                    }
+                    @if (user) {
+                        <ion-item>
+                            <ion-label>
+                                <h3>{{ 'GLOBAL.USER_ID' | translate }}</h3>
+                                <p>{{ user._id }}</p>
+                            </ion-label>
+                        </ion-item>
+                    }
+                </div>
+            </ion-accordion>
+        </ion-accordion-group>
+    </ion-list>
+    <ion-list class="menu-list" [inset]="true">
+        <ion-item>
+            <ion-select label="{{ 'GLOBAL.LANGUAGES' | translate }}" value="{{ currentLanguage }}" 
+                interface="action-sheet"
+                (ionChange)="changeLanguage($event.detail.value)">
+                <ion-select-option value="en">{{ 'GLOBAL.ENGLISH' | translate }}</ion-select-option>
+                <ion-select-option value="es">{{ 'GLOBAL.SPANISH' | translate }}</ion-select-option>
+                <ion-select-option value="ca">{{ 'GLOBAL.CATALAN' | translate }}</ion-select-option>
+                <ion-select-option value="gl">{{ 'GLOBAL.GALICIAN' | translate }}</ion-select-option>
+                <ion-select-option value="eu">{{ 'GLOBAL.BASQUE' | translate }}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item button (click)="launchOnboarding()">
+            <ion-label>{{ 'CONFIG.LAUNCH_ONBOARDING' | translate }}</ion-label>
+        </ion-item>
+        @if (isSynced) {
+            <ion-item button (click)="deSyncDevice()">
+                <ion-label color="danger">{{ 'UUID.DESYNC_DEVICE' | translate }}</ion-label>
+            </ion-item>
+        }
+    </ion-list>
+    <ion-list class="menu-list buy-me-a-coffee" [inset]="true">
+        <ion-item button class="buy-me-a-coffee" (click)="buyMeACoffee()">
+            <!-- <a href="https://www.buymeacoffee.com/longocode" target="_blank"> -->
+                <img class="buy-me-a-coffee-img" [src]="environment.web.host + '/assets/logos/bmc-logo-yellow.png'" alt="Buy Me A Coffee">
+                <ion-label>{{ 'GLOBAL.BUY_ME_A_COFFEE' | translate }}</ion-label>
+            <!-- </a> -->
+        </ion-item>
+    </ion-list>
+</ion-content>

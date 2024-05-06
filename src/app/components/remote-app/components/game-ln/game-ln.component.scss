@@ -1,0 +1,77 @@
+@import '../../../../styles/variables.scss';
+
+:host {
+  display: block;
+  width: 100%;
+
+  .game {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 7px;
+    border-radius: 7px;
+    box-shadow: var(--box-shadow);
+    padding: 10px;
+    border: thin solid var(--ln-primary);
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 100%;
+    }
+
+    &-img {
+      width: 25px;
+      margin: 0 15px 0px 0px;
+    }
+
+    &-data {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      &-date {
+        margin-bottom: 15px;
+        text-align: right;
+        font-size: 14px;
+        color: var(--ln-primary);
+        font-weight: bold;
+      }
+    }
+
+    &-more {
+      width: 100%;
+
+      &-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 35px;
+        font-size: 14px;
+      }
+
+      .ball {
+        background: var(--ln-primary);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        margin-right: 10px;
+      }
+
+      &-best-prize {
+
+        &-first-number {
+          // font-weight: bold;
+        }
+
+        &-first-quantity {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

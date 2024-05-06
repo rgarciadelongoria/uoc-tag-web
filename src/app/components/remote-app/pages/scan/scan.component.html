@@ -1,0 +1,59 @@
+<div [ngStyle]="{'visibility': showTicket ? 'visible' : 'hidden'}"
+  class="animated-background">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<section class="scan">
+    <section class="scan-screen">
+        @if(!hasPermission) {
+          <article>Camera permission denied.</article>
+        } @else {
+          @if (!showTicket) {
+            <ion-icon class="scan-screen-pointer" name="add-outline"></ion-icon>
+            @if (showWebScan) {
+              <zxing-scanner 
+                class="web-scanner"
+                (camerasFound)="webCamerasFound($event)"
+                (scanSuccess)="webCodeResult($event)" 
+                [formats]="allowedFormats"></zxing-scanner>
+              @if (!hasWebCamera) {
+                <ion-spinner name="dots"></ion-spinner>
+              }
+            }
+          }
+        }
+    </section>
+</section>
+@if (showTicket) {
+  <section class="ticket-background"
+    (click)="tapTicket(false)">
+    @if (ticketData?.game?.code === gameCodes.LOTERIA_NACIONAL) {
+      <app-ticket-ln
+        [showActions]="false"
+        [data]="ticketData!">
+      </app-ticket-ln>
+    }
+    <article class="ticket-instructions">
+      <span>{{ 'SCAN.MESSAGES.TAP_SCREEN_TO_SCAN' | translate }}</span>
+    </article>
+  </section>
+}

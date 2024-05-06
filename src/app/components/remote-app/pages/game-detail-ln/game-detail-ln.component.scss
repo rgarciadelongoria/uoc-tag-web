@@ -1,0 +1,72 @@
+@import url("../../../../styles/variables.scss");
+
+:host {
+  display: block;
+
+  ion-content {
+    height: 100vh;
+    width: 100vw;
+    padding-top: 50px;
+  }
+
+  cdk-virtual-scroll-viewport {
+    height: 100%;
+    width: 100%;
+    overscroll-behavior: none;
+    overflow : scroll
+  }
+
+  ion-content::part(scroll) {
+    overscroll-behavior: none;
+    overflow : scroll
+  }
+
+  .game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-background);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 100%;
+    height: 100%;
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      padding: 15px 15px 0 15px;
+    }
+    
+    .search {
+      padding: 0 15px 0 15px;
+      background-color: white;
+      border-radius: 100px;
+      margin: 15px;
+      border: thin solid var(--ion-color-dark);
+      width: calc(100% - 30px);
+
+      .search-icon {
+        width: 16px;
+      }
+    }
+
+    .result-list {
+      margin-bottom: 56px;
+      overflow-y: scroll;
+      overscroll-behavior: none;
+    }
+
+    &-img {
+      width: 50px;
+      margin: 0 15px 0px 0px;
+    }
+  }
+
+  .no-results {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+}

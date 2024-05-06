@@ -1,0 +1,43 @@
+<ion-content class="container">
+    <section class="game">
+        @if(game && game._id) {
+            <app-game-ln [data]="game"></app-game-ln>
+        }
+        <article class="search">
+            <ion-input maxlength="5" 
+                placeholder="{{ 'GLOBAL.SEARCH' | translate }}" 
+                (ionInput)="handleInput($event)"
+                [(ngModel)]="searchValue" 
+                (keypress)="showSearchLoading = true"
+                [debounce]="debounce">
+                @if (showSearchLoading) {
+                    <ion-spinner class="search-icon" slot="start" name="dots" aria-hidden="true"></ion-spinner>
+                } @else if (results.length && !searchValue.length) {
+                    <ion-icon class="search-icon" slot="start" name="search" aria-hidden="true"></ion-icon>
+                } @else if (results.length && searchValue.length < 5) {
+                    <ion-icon class="search-icon" slot="start" name="checkmark-outline" aria-hidden="true"></ion-icon>
+                } @else if (!results.length && searchValue.length) {
+                    <ion-icon class="search-icon" slot="start" name="search" aria-hidden="true"></ion-icon>
+                } @else {
+                    <ion-icon class="search-icon" slot="start" name="checkmark-done-outline" aria-hidden="true"></ion-icon>
+                }
+                @if (searchValue.length) {
+                    <ion-icon class="search-icon" slot="end" name="close" aria-hidden="true" (click)="clearSearch()"></ion-icon>
+                }
+            </ion-input>
+        </article>
+        @defer {
+            <cdk-virtual-scroll-viewport itemSize="50" minBufferPx="900" maxBufferPx="1350">
+                <ion-list class="result-list">
+                    @if(results.length) {
+                        <ion-item *cdkVirtualFor="let result of results; track result; let  index = $index"
+                            class="result-list-prize">
+                            <ion-label [ngClass]="'result-list-prize-number-' + index">{{ result.number | translate }}</ion-label>
+                            <ion-label [ngClass]="'result-list-prize-quantity-' + index" slot="end">{{ result.quantity / 100 | currency:'EUR' | async }}</ion-label>
+                        </ion-item>
+                    }
+                </ion-list>
+            </cdk-virtual-scroll-viewport>
+        }
+    </section>
+</ion-content>

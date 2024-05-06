@@ -1,0 +1,90 @@
+:host {
+  display: block;
+  width: 100%;
+
+  .skeleton {
+    &-normal {
+      height: 25px;
+    }
+    &-big {
+      height: 60px;
+    }
+  }
+
+  .ticket {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 7px;
+    border-radius: 7px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 10px;
+    border: thin solid var(--ln-primary);
+
+    &.skeleton {
+      border: thin solid var(--ion-color-medium);
+    }
+
+    &-title {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      width: 100%;
+
+      &-img {
+        width: 25px;
+        margin: 0 auto 0 0;
+      }
+
+      &-date {
+        font-size: 14px;
+        color: var(--ln-primary);
+        font-weight: bold;
+        margin-left: 10px;
+      } 
+    }
+
+    &-data {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      &-number {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin: 10px 0;
+
+        &-character {
+          font-size: 40px;
+          font-weight: bold;
+          letter-spacing: 17px;
+        }
+      }
+    }
+
+    &-actions {
+      position: relative;
+      height: 0;
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-content: flex-end;
+      right: 10px;
+      bottom: -5px;
+
+      &-delete {
+        width: 25px;
+        height: 25px;
+        background-color: white;
+        border-radius: 100px;
+      } 
+    } 
+  }
+
+  .has-actions {
+    margin-top: 17px;
+  }
+}

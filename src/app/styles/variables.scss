@@ -1,10 +1,14 @@
-:host {
-	display: block;
-}
+:root {
+    --color-background: var(--ion-tab-bar-background, var(--ion-color-step-50, #f7f7f7));
+    --box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-body {
 	/*
-	Custom app styles here
+	Games styles
+	*/
+	--ln-primary: #3478b3;
+
+	/*
+	Custom Ionic Styles
 	*/
 	--ion-color-primary: #3880ff;
 	--ion-color-primary-rgb: 56,128,255;
@@ -68,8 +72,4 @@ body {
 	--ion-color-dark-contrast-rgb: 255,255,255;
 	--ion-color-dark-shade: #1e2023;
 	--ion-color-dark-tint: #383a3e;
-
-	--background: var(--ion-tab-bar-background, var(--ion-color-step-50, #f7f7f7));
-
-	/* background: var(--background); */
 }

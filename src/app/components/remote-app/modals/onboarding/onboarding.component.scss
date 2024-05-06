@@ -1,0 +1,41 @@
+:host {
+  display: block;
+
+  ion-content {
+    height: 100vh;
+    width: 100vw;
+    padding-top: 50px;
+  }
+
+  ion-content::part(scroll) {
+    overscroll-behavior: none;
+    overflow : scroll
+  }
+
+  .page {display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding-top: 40px;
+  }
+
+  .choose-language {
+    .language-list {
+      width: 100%;
+
+      .flag {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .notifications-permission-img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .camera-permission-img {
+    width: 200px;
+    height: 200px;
+  }
+}

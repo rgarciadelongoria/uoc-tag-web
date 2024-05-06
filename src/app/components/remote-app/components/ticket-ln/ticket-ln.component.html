@@ -1,0 +1,45 @@
+@if(skeleton) {
+    <section class="ticket skeleton has-actions">
+        <article class="ticket-title">
+            <ion-skeleton-text class="skeleton-normal" [animated]="true"></ion-skeleton-text>
+        </article>
+        <section class="ticket-data">
+            <ion-skeleton-text class="skeleton-big" [animated]="true"></ion-skeleton-text>
+            <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </section>
+    </section>
+} @else if(data.ticket.code === gameCodes.LOTERIA_NACIONAL) {
+    @if(showActions) {
+        <section class="ticket-actions">
+            <ion-icon class="ticket-actions-delete" 
+                (click)="deleteTicketById(data.ticket._id || ''); $event.stopPropagation()"
+                color="danger"
+                name="remove-circle"></ion-icon>
+        </section>
+    }
+    <section class="ticket"
+        [ngClass]="{'has-actions': showActions}">
+        <article class="ticket-title">
+            <img class="ticket-title-img"
+                aria-hidden="true" slot="start" alt="" 
+                [src]="environment.web.host + '/assets/logos/games/' + data.ticket.code + '.png'">
+            <span class="ticket-title-date" color="medium">{{ data.ticket.date | date | async }}</span>
+        </article>
+        <section class="ticket-data">
+            <span class="ticket-data-number">
+                <span class="ticket-data-number-character">{{ data.ticket.data.info.number?.toString()![0] }}</span>
+                <span class="ticket-data-number-character">{{ data.ticket.data.info.number?.toString()![1] }}</span>
+                <span class="ticket-data-number-character">{{ data.ticket.data.info.number?.toString()![2] }}</span>
+                <span class="ticket-data-number-character">{{ data.ticket.data.info.number?.toString()![3] }}</span>
+                <span class="ticket-data-number-character">{{ data.ticket.data.info.number?.toString()![4] }}</span>
+            </span>
+            @if (data.game.data.info.prizes.length) {
+                <span class="ticket-data-prize">{{ data.prize.quantity / 100 | currency:'EUR' | async }}</span>
+            } @else {
+                <span class="ticket-data-prize">{{ 'GAMES.DRAW_PENDING' | translate }}</span>
+            }
+        </section>
+    </section>
+} @else {
+    <p>Game not available</p> <!-- TODO: -->
+}

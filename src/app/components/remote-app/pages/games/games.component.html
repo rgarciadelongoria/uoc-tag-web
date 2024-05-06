@@ -1,0 +1,51 @@
+<ion-content padding color="light">
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    @if(games.length) {
+        <section class="main-container">
+            @for(game of games; track game._id; let index = $index) {
+                <span class="main-container-element" (click)="openGame(game)">
+                    @if(game.code === gamesCodes.LOTERIA_NACIONAL) {
+                        <app-game-ln [data]="game"></app-game-ln>
+                    }
+                </span>
+            }
+            @if(showLoadMore) {
+                <span class="main-container-element" (click)="loadMore()">
+                        @if(showLoadMoreSpinner) {
+                            <span><ion-spinner name="crescent"></ion-spinner></span>
+                        } @else {
+                            <section class="main-container-element-load-more">
+                                <span class="main-container-element-load-more-text">{{ 'GLOBAL.LOAD_MORE' | translate }}</span>
+                            </section>
+                        }
+                </span>
+            }
+        </section>
+    } @else {
+
+        @if(noGamesLoaded) {
+            <section class="empty-content">
+                <ion-icon class="empty-content-icon" name="scan-circle-outline"></ion-icon>
+                <span class="empty-content-message">{{ 'GAMES.EMPTY_GAME_LIST' | translate }}</span>
+            </section>
+        } @else {
+            <section class="main-container">
+                @for(skeleton of skeletons; track skeleton; let index = $index) {
+                    <span class="main-container-element">
+                        <section class="skeleton-item">
+                            <article class="skeleton-item-row">
+                                <ion-skeleton-text class="skeleton-item-img" [animated]="true"></ion-skeleton-text>
+                                <ion-skeleton-text class="skeleton-item-date" [animated]="true"></ion-skeleton-text>
+                            </article>
+                            <article class="skeleton-item-row body">
+                                <ion-skeleton-text class="skeleton-item-body" [animated]="true"></ion-skeleton-text>
+                            </article>
+                        </section>
+                    </span>
+                }
+            </section>
+        }
+    }
+</ion-content>

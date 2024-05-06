@@ -1,0 +1,45 @@
+<ion-content padding color="light">
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    @if(tickets.length) {
+        <section class="main-container">
+            @for(item of tickets; track item.ticket._id) {
+                <span class="main-container-element">
+                    @if(item.ticket.code === gamesCodes.LOTERIA_NACIONAL) {
+                        <app-ticket-ln
+                            (click)="openGame(item.game)"
+                            [data]="item"
+                            (deleteTicketEvent)="deleteTicketById($event)">
+                        </app-ticket-ln>
+                    }
+                </span>
+            }
+            @if(showLoadMore) {
+                <span class="main-container-element" (click)="loadMore()">
+                        @if(showLoadMoreSpinner) {
+                            <span><ion-spinner name="crescent"></ion-spinner></span>
+                        } @else {
+                            <section class="main-container-element-load-more">
+                                <span class="main-container-element-load-more-text">{{ 'GLOBAL.LOAD_MORE' | translate }}</span>
+                            </section>
+                        }
+                </span>
+            }
+        </section>
+    } @else {
+        @if(noTicketsLoaded) {
+            <section class="empty-content">
+                <ion-icon class="empty-content-icon" name="scan-circle-outline"></ion-icon>
+                <span class="empty-content-message">{{ 'TICKETS.EMPTY_TICKET_LIST' | translate }}</span>
+            </section>
+        } @else {
+            @for(skeleton of skeletons; track skeleton; let index = $index) {
+                <span class="main-container-element">
+                    <app-ticket-ln [skeleton]="true">
+                    </app-ticket-ln>
+                </span>
+            }
+        }
+    }
+</ion-content>
