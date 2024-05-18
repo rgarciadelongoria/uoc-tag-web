@@ -1,0 +1,55 @@
+<section class="game">
+    <article class="row">
+      <img class="game-img-title"
+        aria-hidden="true" slot="start" alt=""
+        [src]="environment.web.host + '/assets/logos/games/' + data.code + '-title.svg'">
+      <img class="game-img"
+        aria-hidden="true" slot="start" alt="" 
+        [src]="environment.web.host + '/assets/logos/games/' + data.code + '.svg'">
+      <section class="game-data">
+        <span class="game-data-date" color="medium">{{ data.date | date | async }}</span>
+      </section>
+    </article>
+    <article class="row">
+      <section class="game-more">
+				@if(prizes[0].combination) {
+					<article class="game-more-item">
+						<ion-label [ngClass]="'game-more-item-combination'">
+							@for(number of combination; track number) {
+                <span class="ball">{{ number }}</span>
+              }
+            </ion-label>
+					</article>
+					<article class="game-more-item">
+            <ion-label [ngClass]="'game-more-item-complementary'">
+              @if(complementary) {
+                <span class="ball">{{ complementary }}</span>
+              }
+              @if(refund) {
+                <span class="ball">{{ refund }}</span>
+              }
+            </ion-label>
+						<ion-label [ngClass]="'game-more-item-complementary strong'" slot="end">
+              {{ bestCategory.quantity | currency:'EUR' | async }}
+              {{ bestCategory.winners }}
+              <ion-icon class="person" name="person"></ion-icon>
+            </ion-label>
+          </article>
+					<article class="game-more-item">
+            <ion-label [ngClass]="'game-more-item-joker'">
+              @if(jokerCombination) {
+                <img class="joker" aria-hidden="true"
+                  [src]="environment.web.host + '/assets/logos/games/joker.svg'">
+                <span class="ball ball-joker">{{ jokerCombination }}</span>
+              }
+            </ion-label>
+						<ion-label [ngClass]="'game-more-item-joker strong'" slot="end">
+              {{ jokerBestCategory.quantity | currency:'EUR' | async }}
+              {{ jokerBestCategory.winners }}
+              <ion-icon class="person" name="person"></ion-icon>
+            </ion-label>
+          </article>
+				}
+      </section>
+    </article>
+</section>

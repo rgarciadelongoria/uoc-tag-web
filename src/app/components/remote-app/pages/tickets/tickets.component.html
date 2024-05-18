@@ -8,7 +8,7 @@
                 <span class="main-container-element">
                     @if(item.ticket.code === gamesCodes.LOTERIA_NACIONAL) {
                         <app-ticket-ln
-                            (click)="openGame(item.game)"
+                            (click)="openGame(item.game, item.ticket.data.info.number)"
                             [data]="item"
                             (deleteTicketEvent)="deleteTicketById($event)">
                         </app-ticket-ln>

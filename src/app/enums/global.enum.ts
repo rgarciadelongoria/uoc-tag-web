@@ -6,6 +6,7 @@ export enum LocalStorageKeys {
     TAB_NAVIGATION = "tabNavigation",
     TOKEN = "token",
     RELOAD_TICKETS = 'reloadTickets',
+    GAMES = 'games',
 }
 
 export enum Tabs {
@@ -36,6 +37,7 @@ export enum GlobalKeys {
 
 export enum GameCodes {
     LOTERIA_NACIONAL = 'ln',
+    LA_PRIMITIVA = 'pr',
 }
 
 export enum AlertCodes {

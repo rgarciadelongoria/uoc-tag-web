@@ -21,6 +21,14 @@
     overflow : scroll
   }
 
+  .ball {
+    background: var(--ln-primary);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-right: 10px;
+  }
+
   .game {
     display: flex;
     flex-direction: column;
@@ -44,11 +52,16 @@
       background-color: white;
       border-radius: 100px;
       margin: 15px;
-      border: thin solid var(--ion-color-dark);
+      border: thin solid black;
       width: calc(100% - 30px);
+
+      .error {
+        color: var(--ion-color-danger);
+      }
 
       .search-icon {
         width: 16px;
+        margin-right: 10px;
       }
     }
 
@@ -56,6 +69,12 @@
       margin-bottom: 56px;
       overflow-y: scroll;
       overscroll-behavior: none;
+      height: 100%;
+      width: 100%;
+
+      &-prize {
+        font-size: 14px;
+      }
     }
 
     &-img {

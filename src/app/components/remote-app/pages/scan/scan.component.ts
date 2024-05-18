@@ -132,6 +132,7 @@ export class ScanComponent implements OnInit {
   }
 
   private async onScannerResponse(response: any): Promise<void> {
+    this.ticketData = null;
     const responseValue = response.displayValue || '';
     if (this.checkUuidQRCode(responseValue || '')) {
       // Scan uuid logic
@@ -141,18 +142,28 @@ export class ScanComponent implements OnInit {
       await this.startScan();
     } else if (response && !response.closed) {
       // Scan ticket logic
+      this.setTicketVisibility(true);
       this.showLoading();
       let ticketId = '';
       try {
         const ticketData = await this.ticketSrv.createNewTicket(responseValue || '');
         ticketId = ticketData._id || '';
+        this.storageSrv.setItem(LocalStorageKeys.RELOAD_TICKETS, true);
+        this.cdr.detectChanges();
       } catch (error) {
         ticketId = (error as any).error?.ticket?._id || '';
+        this.cdr.detectChanges();
       }
-      this.ticketData = await this.gameSrv.getTicketPrizeByTicketId(ticketId);
-      this.dismissLoading();
-      this.setTicketVisibility(true);
+      try {
+        this.ticketData = await this.gameSrv.getTicketPrizeByTicketId(ticketId);
+        this.dismissLoading();
+      } catch (error) {
+        this.setTicketVisibility(false);
+        await this.presentAlertInvalidCode();
+        await this.startScan();
+      }
     }
+    this.cdr.detectChanges();
   }
 
   private async onScannerError(response: any): Promise<void> {
@@ -177,6 +188,29 @@ export class ScanComponent implements OnInit {
 
   private async dismissLoading() {
     await this.loadingCtrl.dismiss();
+  }
+
+  private async presentAlertInvalidCode(): Promise<AlertCodes> {
+    this.dismissLoading();
+    const alert = await this.alertController.create({
+      header: this.translateSrv.instant('GLOBAL.INVALID_CODE'),
+      subHeader: this.translateSrv.instant('GLOBAL.INVALID_GAME'),
+      message: this.translateSrv.instant('GLOBAL.INVALID_CODE_TEXT'),
+      buttons: [
+        {
+          text: this.translateSrv.instant('GLOBAL.ACCEPT'),
+          role: AlertCodes.ACCEPT,
+          handler: () => {
+            // Nothing to do
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    return role as AlertCodes;
   }
 
   private async presentAlertConfirmSyncUuid(): Promise<AlertCodes> {

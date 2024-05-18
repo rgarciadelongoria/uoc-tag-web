@@ -12,6 +12,7 @@
   }
 
   .ticket {
+    overflow: hidden;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -28,14 +29,26 @@
     }
 
     &-title {
+      position: relative;
       display: flex;
       justify-content: flex-end;
       align-items: center;
       width: 100%;
 
+      &-img-title {
+        position: absolute;
+        width: 100px;
+        top: -25px;
+        left: 0;
+      }
+
       &-img {
-        width: 25px;
-        margin: 0 auto 0 0;
+        position: absolute;
+        opacity: 0.15;
+        width: 300px;
+        top: -20px;
+        left: -70px;
+        rotate: 20deg;
       }
 
       &-date {
@@ -62,6 +75,10 @@
           font-weight: bold;
           letter-spacing: 17px;
         }
+      }
+
+      &-spinner {
+        height: 18.9px;
       }
     }
 

@@ -8,6 +8,8 @@
                 <span class="main-container-element" (click)="openGame(game)">
                     @if(game.code === gamesCodes.LOTERIA_NACIONAL) {
                         <app-game-ln [data]="game"></app-game-ln>
+                    } @if(game.code === gamesCodes.LA_PRIMITIVA) {
+                        <app-game-pr [data]="game"></app-game-pr>
                     }
                 </span>
             }

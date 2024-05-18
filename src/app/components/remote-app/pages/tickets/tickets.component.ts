@@ -14,8 +14,8 @@ import { LoadingComponent } from '@components/remote-app/components/loading/load
 import { GameCodes, LocalStorageKeys, Tabs } from '@enums/global.enum';
 import { StorageService } from '@services/storage.service';
 
-const OFFSET_INCREASE = 5;
-const LIMIT = 5;
+const OFFSET_INCREASE = 10;
+const LIMIT = 10;
 
 @Component({
   selector: 'app-tickets',
@@ -55,18 +55,11 @@ export class TicketsComponent {
   async ionViewDidEnter(): Promise<void> {
     this.limit = LIMIT;
     const reloadTickets = this.storageSrv.getItem(LocalStorageKeys.RELOAD_TICKETS);
-    const lastTabNavigation = this.storageSrv.getItem(LocalStorageKeys.TAB_NAVIGATION) || [];
-    if (!this.tickets.length ||
-      (lastTabNavigation[1] === Tabs.SCAN) ||
-      (reloadTickets)
-    ) {
+    if (!this.tickets.length || reloadTickets) {
       this.offset = 0;
+      this.noTicketsLoaded = !reloadTickets;
+      this.cdr.detectChanges();
       await this.getUserTickets();
-      if (this.tickets.length) {
-        this.sortTicketsByDate();
-      } else {
-        this.noTicketsLoaded = true;
-      }
     }
     this.cdr.detectChanges();
   }
@@ -94,8 +87,8 @@ export class TicketsComponent {
     }
   }
 
-  public openGame(game: GameData): void {
-    this.gameSrv.openGame(game);
+  public openGame(game: GameData, number: string = ''): void {
+    this.gameSrv.openGame(game, number);
   }
 
   public async loadMore(): Promise<void> {
@@ -107,21 +100,26 @@ export class TicketsComponent {
   }
 
   private async getUserTickets(): Promise<void> {
-    this.showLoadMore = true;
     this.storageSrv.setItem(LocalStorageKeys.RELOAD_TICKETS, false);
     try {
       const tickets = await this.gameSrv.getAllTicketsPrizesByUser(this.limit, this.offset);
+      this.showLoadMore = false;
       if (this.offset === 0) {
         this.tickets = tickets;
       } else {
         this.tickets = this.tickets.concat(tickets);
       }
-      if (tickets.length < this.limit) {
-        this.showLoadMore = false;
+      if (tickets.length >= this.limit) {
+        this.showLoadMore = true;
       }
-      this.cdr.detectChanges();
     } catch (error) {
       console.log('Error getting tickets by user', error);
     }
+    if (this.tickets.length) {
+      this.sortTicketsByDate();
+    } else {
+      this.noTicketsLoaded = true;
+    }
+    this.cdr.detectChanges();
   }
 }

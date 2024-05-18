@@ -20,9 +20,12 @@
     <section class="ticket"
         [ngClass]="{'has-actions': showActions}">
         <article class="ticket-title">
+            <img class="ticket-title-img-title"
+                aria-hidden="true" slot="start" alt=""
+                [src]="environment.web.host + '/assets/logos/games/' + data.ticket.code + '-title.svg'">
             <img class="ticket-title-img"
-                aria-hidden="true" slot="start" alt="" 
-                [src]="environment.web.host + '/assets/logos/games/' + data.ticket.code + '.png'">
+                aria-hidden="true"
+                [src]="environment.web.host + '/assets/logos/games/' + data.ticket.code + '.svg'">
             <span class="ticket-title-date" color="medium">{{ data.ticket.date | date | async }}</span>
         </article>
         <section class="ticket-data">
@@ -33,8 +36,10 @@
                 <span class="ticket-data-number-character">{{ data.ticket.data.info.number?.toString()![3] }}</span>
                 <span class="ticket-data-number-character">{{ data.ticket.data.info.number?.toString()![4] }}</span>
             </span>
-            @if (data.game.data.info.prizes.length) {
-                <span class="ticket-data-prize">{{ data.prize.quantity / 100 | currency:'EUR' | async }}</span>
+            @if (showSearchLoading) {
+                <ion-spinner class="ticket-data-spinner" name="dots"></ion-spinner>
+            } @else if (prize.number) {
+                <span class="ticket-data-prize">{{ prize.quantity / 100 | currency:'EUR' | async }}</span>
             } @else {
                 <span class="ticket-data-prize">{{ 'GAMES.DRAW_PENDING' | translate }}</span>
             }

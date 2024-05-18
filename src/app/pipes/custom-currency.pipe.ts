@@ -11,7 +11,9 @@ export class CustomCurrencyPipe implements PipeTransform {
   constructor(private translateService: TranslateService) {}
  
   public transform(value: any, currencyCode?: string): Observable<string> {
-    const date = new Date(value);
+    if (typeof value === 'string') {
+      value = parseFloat(value.replace(",", "."));
+    }
     const options: Intl.NumberFormatOptions = {
       style: 'currency',
       currency: currencyCode || 'EUR'

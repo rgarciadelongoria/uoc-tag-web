@@ -43,7 +43,7 @@
         }
     </section>
 </section>
-@if (showTicket) {
+@if (showTicket && ticketData) {
   <section class="ticket-background"
     (click)="tapTicket(false)">
     @if (ticketData?.game?.code === gameCodes.LOTERIA_NACIONAL) {
